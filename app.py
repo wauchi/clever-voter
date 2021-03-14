@@ -2,7 +2,10 @@ from VotingCalculator import VotingCalculator
 
 import operator
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import streamlit as st
+
+mpl.style.use('seaborn-pastel')
 
 st.title("Clever Voting")
 st.write("Make fair votes great again! A simple voting system based on graph theory")
@@ -31,5 +34,5 @@ if st.button("Calucalte results"):
         values.append(y)
 
     fig = plt.figure()
-    plt.pie(values, labels=labels)
+    plt.pie(values, labels=labels, autopct="%1.1f%%", startangle=90, rotatelabels=True)
     st.pyplot(fig)
