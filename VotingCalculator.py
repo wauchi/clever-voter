@@ -3,12 +3,12 @@ import numpy as np
 
 class VotingCalculator:
     def __init__(self, categories, votes):
-        self.categories = [x.strip(" ")for x in categories]
+        self.categories = [x.strip(" ").lower() for x in categories]
         self.votes = []
         for i in range(len(votes)):
             tmp = []
             for j in [x.strip(" ") for x in votes[i].split(',')]:
-                tmp.append(self.categories.index(j))
+                tmp.append(self.categories.index(j.lower()))
             self.votes.append(tmp)
 
     def calculate(self):
@@ -26,10 +26,8 @@ class VotingCalculator:
 
         probs = np.array(list(relations.values()))
         probs = probs.reshape(-1, len(self.categories))
-        print(probs)
 
         result = np.full((len(self.categories)), 1 / len(self.categories))
-        print(result)
         avg_change = 1
         while avg_change > 0.0001:
             tmp_change = 0
@@ -47,16 +45,8 @@ class VotingCalculator:
             result_out[self.categories[i]] = result_in[i]
         return result_out
 
-# #  0 = sushi, 1 = fc, 2 = pizza, 3 = indian
-# options = ["sushi", "fc", "pizza", "indian"]
-# votes = ["sushi,fc,pizza,indian","sushi,fc,pizza,indian","fc,sushi,pizza,indian","pizza,fc,indian,sushi"]
-# # votes.append([0, 1, 2, 3])
-# # votes.append([0, 1, 2, 3])
-# # votes.append([1, 0, 2, 3])
-# # votes.append([2, 1, 3, 0])
-# test = VotingCalculator(options, votes)
-# print(test.calculate())
 
-
-
-
+options = ["X", "MX", "M"]
+values = ["X,MX,M", "X,MX,M", "MX,M,X", "M,MX,X", "M,MX,X"]
+test = VotingCalculator(options, values)
+print(test.calculate())

@@ -24,15 +24,19 @@ votes = st.text_area("Votes (newline-separated)")
 votes_prepared = votes.split("\n")
 
 if st.button("Calucalte results"):
-    calculator = VotingCalculator(categories_prepared, votes_prepared)
-    results = calculator.calculate()
-    st.header("The winner is: " + max(results.items(), key=operator.itemgetter(1))[0])
-    labels = []
-    values = []
-    for x,y in results.items():
-        labels.append(x)
-        values.append(y)
+    try:
+        calculator = VotingCalculator(categories_prepared, votes_prepared)
+        results = calculator.calculate()
+        st.header("The winner is: " + max(results.items(), key=operator.itemgetter(1))[0].capitalize())
+        labels = []
+        values = []
+        for x,y in results.items():
+            labels.append(x.capitalize())
+            values.append(y)
 
-    fig = plt.figure()
-    plt.pie(values, labels=labels, autopct="%1.1f%%", startangle=90, rotatelabels=True)
-    st.pyplot(fig)
+        fig = plt.figure()
+        plt.pie(values, labels=labels, autopct="%1.1f%%", startangle=90, rotatelabels=True)
+        st.pyplot(fig)
+    except ValueError as e:
+        st.error("Please enter a valid input. " + e.args[0].split(" ", 1)[0] + " is not a category")
+
