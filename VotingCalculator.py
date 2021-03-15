@@ -13,7 +13,7 @@ class VotingCalculator:
 
     def calculate(self):
         relations = {}
-        edges = len(self.categories) * (len(self.categories) - 1)
+        edges = len(self.votes) * (len(self.categories) - 1)
         for i in range(len(self.categories)):
             for j in range(len(self.categories)):
                 relations[str(i) + "+" + str(j)] = 0
@@ -44,9 +44,3 @@ class VotingCalculator:
         for i in range(len(result_in)):
             result_out[self.categories[i]] = result_in[i]
         return result_out
-
-
-options = ["X", "MX", "M"]
-values = ["X,MX,M", "X,MX,M", "MX,M,X", "M,MX,X", "M,MX,X"]
-test = VotingCalculator(options, values)
-print(test.calculate())

@@ -27,11 +27,11 @@ if st.button("Calucalte results"):
     try:
         calculator = VotingCalculator(categories_prepared, votes_prepared)
         results = calculator.calculate()
-        st.header("The winner is: " + max(results.items(), key=operator.itemgetter(1))[0].capitalize())
+        st.header("The winner is: " + max(results.items(), key=operator.itemgetter(1))[0].title())
         labels = []
         values = []
         for x,y in results.items():
-            labels.append(x.capitalize())
+            labels.append(x.title())
             values.append(y)
 
         fig = plt.figure()
